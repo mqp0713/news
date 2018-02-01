@@ -1,14 +1,15 @@
 <template>
   <div class="hello">
     <ul>
-      <li v-for="item in list" :key="item.id" v-on:click="viewDetail(item)">
+      <li v-for="item in list" :key="item.id" v-on:click="viewDetail">
         <p class="title">
-          {{item.id + "." + item.title +"(" + item.date} + ")"}
+          {{ item.id + "." + item.title +"(" + item.date + ")" }}
         </p>
-        <button class="viewBtn">查看详情</button>
+        <router-link :to="{name:'Detail',params:{id:item.id,detailObj:item}}">
+          <button class="viewBtn">查看详情</button>
+        </router-link>
       </li>
     </ul>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -46,8 +47,21 @@ export default {
     }
   },
   methods: {
-    viewDetail: function (obj) {
-      console.log(obj)
+    viewDetail: function (e) {
+      if (e.target.tagName === 'LI') {
+        e.target.parentNode.style.background = 'transparent'
+        e.target.parentNode.childNodes.forEach(function (item) {
+          item.style.background = 'transparent'
+        })
+        e.target.style.background = 'red'
+      } else {
+        if (e.target.parentNode.tagName === 'P') {
+          e.target.parentNode.parentNode.childNodes.forEach(function (item) {
+            item.style.background = 'transparent'
+          })
+        }
+        e.target.parentNode.style.background = 'red'
+      }
     }
   }
 }

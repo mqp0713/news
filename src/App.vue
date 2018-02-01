@@ -5,7 +5,10 @@
       <router-link to="/history">历史消息</router-link>
       <router-link to="/user">我的</router-link>
     </p>
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
+    <router-view name="a"></router-view>
   </div>
 </template>
 

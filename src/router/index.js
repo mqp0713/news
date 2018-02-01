@@ -4,14 +4,16 @@ import Home from '@/components/Home'
 import History from '@/components/History'
 import User from '@/components/User'
 import None from '@/components/None'
-import Dynamic from '@/components/Dynamic'
-// import Detail from '@/components/Detail'
+// import Dynamic from '@/components/Dynamic'
+import Detail from '@/components/Detail'
+import Subscription from '@/components/Subscription'
+import View from '@/components/View'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    // * 通配符表示当前没有配置路由的时候跳转的地址，权重最低
+    // * 通配符表示当前没有配置路由的时候跳转的地址，优先级最低
     {
       path: '*',
       name: 'None',
@@ -22,18 +24,32 @@ export default new Router({
     // 匹配路径：/user/evan/post/123，$route.params：{ username: 'evan', post_id: 123 }
     {
       path: '/home/:id',
-      name: 'Dynamic',
-      component: Dynamic
+      name: 'Detail',
+      component: Detail,
+      // props设置为true，route.params将会被设置为组件属性
+      props: true,
+      // 嵌套路由children
+      children: [
+        {
+          path: 'subscription',
+          name: 'Subscription',
+          component: Subscription
+        }
+      ]
     },
-    // redirect:将 / 重定向到 /home
+    // 路由重定向
     {
       path: '/',
       redirect: '/home'
     },
+    // 命名视图
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      components: {
+        default: Home,
+        a: View
+      }
     },
     {
       path: '/history',
