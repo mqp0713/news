@@ -2,6 +2,8 @@
 
 > 新闻类
 
+[在线预览]（https://mqp0713.github.io/news/dist/index.html）
+
 ## Build Setup
 
 ``` bash
